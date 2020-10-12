@@ -8,6 +8,7 @@ from trending.models import Trending
 from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.models import User, Group, Permission
 import random
+import string
 from random import randint
 from passlib.hash import pbkdf2_sha256
 from django.contrib.auth.hashers import make_password, check_password
@@ -117,7 +118,14 @@ def panel(request):
 		error = '  '
 		return render(request, 'back/error.html', {'error':error})
 
-	return render(request, 'back/home.html')
+	rand = ""
+	test = [ '~','@','#','$','%','^','&','*','(',')','_','-','+','=','|','<','>', ',','.','/','?','{','}','[',']',':',':',"'"]
+	for i in range(100):
+		rand = rand + random.choice(string.ascii_letters) + random.choice(test)
+
+
+
+	return render(request, 'back/home.html', {'rand':rand})
 
 
 def mylogin(request):

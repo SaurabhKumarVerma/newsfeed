@@ -417,10 +417,10 @@
 						</div>
 						<br>
 
-						<form action="{% url 'news_letter' %}" method="POST">
+						<form action="{% url 'news_letter' %}" method="POST" onsubmit=" return validate()">
 							{% csrf_token %}
-						<input class="bo-1-rad-3 bocl13 size-a-19 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text" name="name" placeholder="Enter Your Email & Phone Number">
-						<button type="submit" class="btn btn-success" >Submit</button>
+						<input class="bo-1-rad-3 bocl13 size-a-19 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text" id="newslettername" name="newslettername" placeholder="Enter Your Email & Phone Number">
+						<button onclick="return validate()" type="submit" class="btn btn-success" >Submit</button>
 					</form>
 					</div>
 
@@ -532,6 +532,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="{% static 'front/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
 <!--===============================================================================================-->
 	<script src="{% static 'front/js/main.js' %}"></script>
+<!--===============================================================================================-->
+
 
 </body>
 </html>

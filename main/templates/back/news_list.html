@@ -44,7 +44,7 @@
 
                                     	{% for data in news %}
                                         <tr>
-                                            <td class="text-center">{{ data.pk }}</td>
+                                            <td class="text-center">{{ data.rand }}</td>
                                             <td class="text-center"><img style = "display: inline-block; width:50px; height:50px;" src="{{data.picurl}}" alt="avatar" class="img-circle"></td>
                                             <td>{{ data.name }}</td>
                                             <td>{{ data.date }} | {{ data.time }}</td>

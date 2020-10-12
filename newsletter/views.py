@@ -17,10 +17,29 @@ from manager.models import Manager
 def news_letter(request):
 
     if request.method == 'POST':
-        txt = request.POST.get('name')
+        txt = request.POST.get('newslettername')
 
-        b = Newsletter(txt=txt,status=1)
-        b.save()
+        print(type(txt))
+
+        res = txt.find('@')
+
+        # need to work 
+        if int(res) != -1:
+
+            b = Newsletter(txt=txt,status=1)
+            b.save()
+        else:
+            try:
+                if int(res) <=10 and res != -1:
+                    print(type(txt))
+                    b = Newsletter(txt=txt,status=2)
+                    b.save()
+                else:
+                    msg = "Number should be 10 Digit"
+                    return render(request, 'front/msg.html',{'msg':msg})
+            except:
+                return redirect('home')
+            
 
     return redirect('home')
 
@@ -35,7 +54,7 @@ def news_email(request):
         return redirect("mylogin")
 
 
-    email = Newsletter.objects.filter(status=1)
+    email = Newsletter.objects.all().exclude(status=1)
 
     return render(request, 'back/email.html',{'email':email})
 
@@ -49,6 +68,25 @@ def news_phone(request):
         return redirect("mylogin")
 
 
-    phone = Newsletter.objects.filter(status=0)
+    phone = Newsletter.objects.filter(status=2)
 
     return render(request, 'back/phone.html',{'phone':phone})
+
+
+def news_del(request ,pk,num):
+
+    perm = 0
+    for i in request.user.groups.all():
+        if i.name == 'mastername' :perm = 1
+
+    if not request.user.is_authenticated:
+        return redirect("mylogin")
+
+
+    b = Newsletter.objects.get(pk=pk)
+    b.delete()
+
+    if int(num) == 2:
+        return redirect('news_phone')
+
+    return redirect('news_email')
