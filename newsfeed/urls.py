@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'',include('contactform.urls')),
     url(r'',include('trending.urls')),
     url(r'',include('manager.urls')),
+    url(r'',include('newsletter.urls')),
 ]
 
 if settings.DEBUG:
