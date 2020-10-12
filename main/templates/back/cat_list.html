@@ -1,0 +1,74 @@
+
+{% extends 'back/master.html'%}
+{% load staticfiles %}
+{% load extra_auth %}
+
+{% block mainblock %}
+	
+	<div class="content-header">
+                            <div class="header-section">
+                                <h1>
+                                    <i class="fa fa-table"></i>Category<br><small></small>
+                                </h1>
+                            </div>
+                        </div>
+                        <ul class="breadcrumb breadcrumb-top">
+                            <li>Category</li>
+                            <li><a href="/panel/category/list">List</a></li>
+                        </ul>
+
+
+
+
+
+                        <div class="block full">
+                            <div class="block-title">
+                                <h2><strong>Category</strong> List</h2>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">ID</th>
+                                            <th>Title</th>
+                                            {% if request.user|has_group:"masteruser" %}
+                                            <th class="text-center">Actions</th>
+                                            {% endif %}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    	{% for data in cat %}
+                                        <tr>
+                                            <td class="text-center">{{ data.pk }}</td>
+                                            
+                                            <td>{{ data.name }}</td>
+                                            {% if request.user|has_group:"masteruser" %}           
+                                            <td class="text-center">
+                                                  
+                                                <div class="btn-group">
+
+                                                    <a href="#" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i>&nbsp;Edit&nbsp;</a>
+                                                    <a href="{% url 'cat_delete' pk=data.pk %}" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i>&nbsp;Delete</a>
+                                                </div>
+                                                {% endif %}
+                                                
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+
+                                       
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+    </div>
+
+{% endblock %}
+
+{% block footerblock %}
+	    <script src="{% static 'back/js/pages/tablesDatatables.js' %}"></script>
+        <script>$(function(){ TablesDatatables.init(); });</script>
+{% endblock %}

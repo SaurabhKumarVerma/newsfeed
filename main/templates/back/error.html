@@ -1,0 +1,33 @@
+
+{% extends 'back/master.html'%}
+{% load staticfiles %}
+
+{% block mainblock %}
+	
+    
+     <h3 class="card-header light-blue lighten-1 white-text text-uppercase font-weight-bold text-center py-5">Error</h3>                  
+    <div class="content-header">
+                            <div class="header-section">
+                                <h1>
+                                    <i class="fa fa-table">{{error}}</i><br>
+                                </h1>
+                            </div> 
+                        
+
+
+
+                           
+
+
+
+
+                       
+{% endblock %}
+
+{% block footerblock %}
+	<script src="{% static 'back/js/pages/tablesDatatables.js' %}"></script>
+    <script>$(function(){ TablesDatatables.init(); });</script>
+
+
+
+{% endblock %}

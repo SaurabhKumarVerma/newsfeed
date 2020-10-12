@@ -1,0 +1,230 @@
+{% extends 'front/master.html' %}
+{% load staticfiles %}
+
+{% block headblock %}
+
+	<title>{{site.name}} | Home</title>
+
+{% endblock %} 
+
+{% block mainblock %}
+	
+	<section class="bg0">
+			<div class="row m-rl-0 justify-content-center">
+
+				{% for lastnews in lastnews %}
+				<div class="col-md-4 p-rl-1 p-b-2">
+					<div class="bg-img1 size-a-11 how1 pos-relative" style="background-image: url({{ lastnews.picurl }});">
+						<a href="{% url 'news_detail' word=lastnews.name %}" class="dis-block how1-child1 trans-03"></a>
+
+						<div class="flex-col-e-s s-full p-rl-25 p-tb-18">
+							<a href="{% url 'news_detail' word=lastnews.name %}" class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">
+								{{lastnews.catname}}
+							</a>
+
+							<h3 class="how1-child2 m-t-14 m-b-10">
+								<a href="{% url 'news_detail' word=lastnews.name %}" class="f1-l-1 cl0 hov-cl10 trans-03 respon1">
+									{{lastname.name}}
+								</a>
+							</h3>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+
+				
+			</div>
+	</section>
+
+	<!-- Post -->
+
+	
+
+	<section class="post bg0 p-t-85">
+		<div class="container">
+			
+						
+						<!-- Business  -->
+						
+						<!-- Travel  -->
+						
+
+						<!-- Life Style  -->
+						{% for newshead in cat %}
+
+						{% if newshead.count != 0 %}
+						<div class="p-b-25 m-r--10 m-r-0-sr991">
+							<div class="how2 how2-cl5 flex-s-c m-r-10 m-r-0-sr991">
+								<h3 class="f1-m-2 cl17 tab01-title">
+									{{newshead.name}}
+								</h3>
+							</div>
+
+							
+							<div class="row p-t-35">
+
+								<div class="col-sm-6 p-r-25 p-r-15-sr991">
+									<!-- Item post -->
+
+									
+									<!-- {% if newscat.pk == ab.ocatid %} -->
+									{% for click in news %}
+									{% if newshead.pk == click.ocatid %}
+
+									<div class="flex-wr-sb-s m-b-30">
+										<a href="{% url 'news_detail' word=click  %}" class="size-w-1 wrap-pic-w hov1 trans-03">
+											<img src="{{ click.picurl }}" alt="IMG">
+										</a>
+
+										<div class="size-w-2">
+											<h5 class="p-b-5">
+												<a href="{% url 'news_detail' word=click %}" class="f1-s-5 cl3 hov-cl10 trans-03">
+													{{click.name }}
+												</a>
+											</h5>
+
+											<span class="cl8">
+												<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+													{{click.catname}}
+												</a>
+
+												<span class="f1-s-3 m-rl-3">
+													-
+												</span>
+
+												<span class="f1-s-3">
+													{{click.date}} | {{click.time}}
+												</span>
+											</span>
+										</div>
+									</div>
+									{% endif %}
+									{% endfor %}
+
+									<!-- {% endif %}	 -->								
+									
+									
+									<!-- Item post -->
+
+
+									
+
+									
+								</div>
+
+
+
+
+
+
+
+
+
+								<div class="col-sm-6 p-r-25 p-r-15-sr991">
+									<!-- Item post -->	
+
+									{% for pop in popnews %}
+									{% if pop.ocatid == newshead.pk %}
+									{% if pop.show != 0 %}
+									<div class="flex-wr-sb-s m-b-30">
+										<a href="{% url 'news_detail' word=pop.name %}" class="size-w-1 wrap-pic-w hov1 trans-03">
+											<img src="{{pop.picurl}}" alt="IMG">
+										</a>
+
+										<div class="size-w-2">
+											<h5 class="p-b-5">
+												<a href="{% url 'news_detail' word=pop.name %}" class="f1-s-5 cl3 hov-cl10 trans-03">
+													{{pop.name}}
+												</a>
+											</h5>
+
+											<span class="cl8">
+												<a href="{% url 'news_detail' word=pop.name %}" class="f1-s-6 cl8 hov-cl10 trans-03">
+													{{pop.cat}}
+												</a>
+
+												<span class="f1-s-3 m-rl-3">
+													-
+												</span>
+
+												<span class="f1-s-3">
+													{{pop.date}}
+												</span>
+											</span>
+										</div>
+									</div>
+									{% endif %}
+									{% endif %}
+									{% endfor %}
+									<!-- Item post -->
+									
+
+								</div>
+							</div>
+							
+						</div>
+						
+						{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+				
+			</div>
+		</div>
+	</section>
+
+	
+
+
+	<section class="bg0 p-t-60 p-b-40">
+		<div class="container">
+			<div class="how2 how2-cl4 flex-s-c">
+				<h3 class="f1-m-2 cl3 tab01-title">
+					Latest Articles
+				</h3>
+			</div>
+
+			<div class="row p-t-35">
+
+				{% for i in news %}
+				<div class="col-sm-6 col-md-4 view overlay zoom">
+					<!-- Item latest -->	
+					<div class="m-b-45 ">
+						<a href="{% url 'news_detail' word=i.name %}" class="wrap-pic-w hov1 trans-03">
+							<img style = "display; width:350px; height:250px; "src="{{ i.picurl }}" alt="IMG">    <!-- ?page={{i.pk}} -->
+						</a>
+
+						<div class="p-t-16">
+							<h5 class="p-b-5">
+								<a href="{% url 'news_detail' word=i.name %}" class="f1-m-3 cl2 hov-cl10 trans-03">
+									{{ i.name }}
+									{{ i.catname }}
+								</a>
+							</h5>
+
+							<p>{{ i.short_txt | safe}}</p>
+
+							<span class="cl8">
+								<a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
+									{{ i.writer }}
+								</a>
+
+								<span class="f1-s-3 m-rl-3">
+									-
+								</span>
+
+								<span class="f1-s-3">
+									Feb 18
+								</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+				
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

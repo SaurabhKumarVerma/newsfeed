@@ -1,0 +1,80 @@
+
+{% extends 'back/master.html'%}
+{% load staticfiles %}
+
+{% block headblock %}
+
+    <static src="{% static 'ckeditor/ckeditor.js' %}"></static>
+    <script src="https://cdn.ckeditor.com/4.15.0/full-all/ckeditor.js"></script>
+
+{% endblock %}
+
+{% block mainblock %}
+	
+	<div class="content-header">
+                            <div class="header-section">
+                                <h1>
+                                    <i class="fa fa-table"></i>EDIT TRENDING<br>
+                                </h1>
+                            </div>
+                        </div>
+                        <ul class="breadcrumb breadcrumb-top">
+                            <li>TRENDING</li>
+                            <li><a href="/panel/news/edit/{{pk}}">EDIT</a></li>
+                        </ul>
+
+
+<div class="row">
+                            <div class="col-md-12">
+                                <!-- Basic Form Elements Block -->
+                                <div class="block">
+                                    <!-- Basic Form Elements Title -->
+                                    <div class="block-title">
+                                        
+                                        <h2><strong>Edit</strong> Trending</h2>
+                                    </div>
+                                    <!-- END Form Elements Title -->
+
+                                    <!-- Basic Form Elements Content -->
+                                    <form action="{% url 'trending_edit' pk=pk %}"  method="post" enctype="multipart/form-data" class="form-horizontal form-bordered" >
+
+                                    	<!-- onsubmit=" return Validate()" -->
+                                    		 {% csrf_token %}
+
+                                    	<div class="form-group">
+                                            <div class="col-md-6">
+                                                <input type="text" id="txt" value="{{ mytxt }}" name="txt" class="form-control" placeholder="Trending" required>
+                                            </div>
+                                                                                    
+                                        </div>
+                                                                            
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-primary"><i class="fa fa-angle-right"></i> Submit</button>
+                                            </div>
+
+                                            
+                                        </div>
+
+                                       
+                                        
+                                        
+                                       
+                                    </form>
+                                    <!-- END Basic Form Elements Content -->
+                                </div>
+                                <!-- END Basic Form Elements Block -->
+                            </div>
+                           
+
+
+                       
+{% endblock %}
+
+{% block footerblock %}
+	<script src="{% static 'back/js/pages/tablesDatatables.js' %}"></script>
+    <script>$(function(){ TablesDatatables.init(); });</script>
+    
+
+    
+{% endblock %}
