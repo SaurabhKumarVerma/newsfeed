@@ -10,5 +10,5 @@ class Manager(models.Model):
 	email = models.TextField(default='')
 
 	def __str__(self):
-		return self.set_name 
+		return self.name 
 	

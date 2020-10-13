@@ -305,10 +305,9 @@ def users_perms(request,pk):
 
 
 	manager = Manager.objects.get(pk=pk)
-
 	user = User.objects.get(username=manager.utxt)
 
-	permission = Permission.objects.filter(name=name)
+	
 
 	permission = Permission.objects.filter(user=user)
 

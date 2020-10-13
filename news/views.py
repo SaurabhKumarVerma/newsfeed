@@ -5,6 +5,7 @@ from django.core.files.storage import FileSystemStorage
 import datetime
 from subcat.models import SubCat
 from cat.models import Cat
+from comment.models import Comment
 import random
 # Create your views here.
 
@@ -31,7 +32,12 @@ def news_detail(request,word):
 		mynews.save()
 	except:
 		print("Can't Add Show " )
-	return render(request, 'front/news_detail.html',{'site':site,'news':news, 'cat':cat,'subcat':subcat,'lastnews':lastnews,'shownews':shownews,'popnews2':popnews2,'tag':tag,'popnews':popnews})
+
+	code = News.objects.get(name=word).pk
+	comment = Comment.objects.filter(news_id=code ,status = 1).order_by('-pk')
+	cmcount = len(comment)
+
+	return render(request, 'front/news_detail.html',{'cmcount':cmcount,'comment':comment,'code':code,'site':site,'news':news, 'cat':cat,'subcat':subcat,'lastnews':lastnews,'shownews':shownews,'popnews2':popnews2,'tag':tag,'popnews':popnews})
 
 
 def news_detail_short(request,pk):
