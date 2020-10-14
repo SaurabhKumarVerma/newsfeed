@@ -27,7 +27,7 @@
                             </div>
                             
                             <div class="table-responsive ">
-                                <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+                                <table id="" class="table table-vcenter table-condensed table-bordered">
                                     <thead>
                                         <tr>
                                             <th class="text-center">ID</th>
@@ -77,6 +77,18 @@
 
                                     </tbody>
                                 </table>
+                                    Page {{news.number}} From {{news.paginator.num_pages}}
+                                    <br>
+                                    <br>
+                                    
+                                    {% for i in news.paginator.page_range %}
+                                        {% if news.number == i %}
+                                        <a href="#" onclick="return false;" data-toggle="tooltip" title="{{Disable}}" class="btn btn-xs btn-default"></i>&nbsp;{{i}}&nbsp;</a>
+                                        {% else %}
+                                        <a href="?page={{i}}" data-toggle="tooltip" title="{{Disable}}" class="btn btn-xs btn-default"></i>&nbsp;{{i}}&nbsp;</a>
+                                        {% endif %}
+                                    {% endfor%}
+                                    
                             </div>
                         </div>
     </div>

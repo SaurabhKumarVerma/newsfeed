@@ -7,6 +7,7 @@ from subcat.models import SubCat
 from cat.models import Cat
 from comment.models import Comment
 import random
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger 
 # Create your views here.
 
 def news_detail(request,word):
@@ -82,7 +83,16 @@ def news_list(request):
 	if perm == 0 :
 		news = News.objects.filter(writer=request.user)
 	elif perm == 1:
-		news = News.objects.all()
+		newss = News.objects.all()
+		paginator = Paginator(newss,2)
+		page = request.GET.get('page')
+
+		try:
+			news = paginator.page(page)
+		except EmptyPage :
+			news = paginator.page(paginator.num_page)
+		except PageNotAnInteger :
+			news = paginator.page(1)
 	
 	
 	return render(request, 'back/news_list.html',{'news':news})
