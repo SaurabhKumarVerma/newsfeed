@@ -13,6 +13,8 @@ from random import randint
 from passlib.hash import pbkdf2_sha256
 from django.contrib.auth.hashers import make_password, check_password
 from manager.models import Manager
+from ipware import get_client_ip
+from ip2geotools.databases.noncommercial import DbIpCity
 
 
 # Create your views here.
@@ -23,17 +25,7 @@ def home(request):
 	import json
 	import requests
 	
-	# try:
-	# 	x_forward = request.META.get("HTTP_X_FORWARADED_FOR")
-	# 	if x_forward:
-	# 		ip = x_forward.split(",")[0]
-	# 	else:
-	# 		ip = request.META.get("REMOTE_ADDR")
-	# except:
-	# 	ip = ""
-	# # client_ip = request.META['REMOTE_ADDR']
 
-	# print(ip)
 
 	url = 'https://api.ipdata.co?api-key=d9abf8a79adeeb7d86662dd39d1daa108d6a4b910a73abb1e3842efb'
 
@@ -185,9 +177,27 @@ def register(request):
 			return render(request, 'back/error.html', {'error':error})
 		
 		if len(User.objects.filter(username=uname)) == 0 and len(User.objects.filter(email=email)) == 0:
-			
+						
+			ip, is_routable =  get_client_ip(request)
+			if ip is None:
+				ip = "0.0.0.0"
+			else:
+				if is_routable:
+					ipv = "Public"
+				else:
+					ipv = "Private"
+					
+			print(ip,ipv)
+
+			try:
+				response = DbIpCity.get(ip,api_key='free')
+				country = response.country + "|" + response.city
+			except:
+				country = 'Unknow'
+				
+		
 			user = User.objects.create_user(username=uname,email=email,password=regpassword)
-			b = Manager(name=name,utxt=uname,email=email)
+			b = Manager(name=name,utxt=uname,email=email,ip=ip, country=country)
 			b.save()
 			
 			

@@ -25,7 +25,7 @@ def manager(request):
 		error = 'URL Not Found'
 		return render(request, 'back/error.html', {'error':error})
 
-	manager = Manager.objects.all()
+	manager = Manager.objects.all().exclude(utxt='saurabh')
 
 	
 	return render(request, 'back/manager_list.html',{'manager':manager})
