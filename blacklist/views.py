@@ -59,3 +59,5 @@ def ip_del(request,pk):
     b.delete()
     
     return redirect('black_list')
+
+

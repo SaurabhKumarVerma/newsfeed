@@ -78,9 +78,10 @@ def home(request):
 	
 
 	random_object = Trending.objects.all()[randint(0, len(trending) -1)]
+	lastnews2 = News.objects.filter(act=1).order_by('-pk')[:4]
 	
 
-	return render(request, 'front/home.html', {'site':site,'news':news, 'cat':cat,'subcat':subcat,'lastnews':lastnews,'popnews2':popnews2, 'trending':trending , 'wheatherapi':wheatherapi, 'min_temp':min_temp, 'max_temp':max_temp,'wheatherapi':wheatherapi})
+	return render(request, 'front/home.html', {'lastnews2':lastnews2,'site':site,'news':news, 'cat':cat,'subcat':subcat,'lastnews':lastnews,'popnews2':popnews2, 'trending':trending , 'wheatherapi':wheatherapi, 'min_temp':min_temp, 'max_temp':max_temp,'wheatherapi':wheatherapi})
 
 def about(request):
 
