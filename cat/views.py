@@ -1,6 +1,8 @@
 from django.shortcuts import render , get_object_or_404,redirect
 from . models import Cat
 from manager.models import Manager
+import csv
+from django.http import HttpResponse
 # Create your views here.
 
 def cat_list(request):
@@ -96,6 +98,52 @@ def cat_delete(request,pk):
 	except Exception as e:
 		error = print(e)
 		return render(request, 'back/error.html', {'error':error})
+
+
+	return redirect('cat_list')
+
+def export_csv_data(request):
+
+	response  = HttpResponse(content_type='text/csv')
+	response['Content-Disposition'] = 'attachment; filename="cat.csv"'
+
+	writer = csv.writer(response)
+	writer.writerow(['Cartegory','Counter'])
+
+	for i in Cat.objects.all():
+		writer.writerow([i.name, i.count])
+
+	return response
+
+def import_csv_data(request):
+
+	if request.method == "POST":
+
+		csv_file = request.FILES['csv_file']
+
+		if not csv_file.name.endswith('.csv'):
+			error = "Please Upload CSV File"
+			return render(request, 'back/error.html', {'error':error})
+		
+		if csv_file.multiple_chunks():
+			error = "File Size is Too Large"
+			return render(request, 'back/error.html', {'error':error})
+
+
+		file_data = csv_file.read().decode("utf-8")
+
+		lines = file_data.split("\n")
+
+		for line in lines:
+			feilds = line.split(",")
+
+			try:
+				if len(Cat.objects.filter(name=feilds[0])) == 0 and feilds[0] != "Title" and feilds[0] != "":
+					b = Cat(name=feilds[0])
+					b.save()
+				
+			except:
+				print('Finshed')
 
 
 	return redirect('cat_list')

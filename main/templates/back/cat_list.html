@@ -22,6 +22,37 @@
 
 
                         <div class="block full">
+
+                            <div class="block-title">
+                                <h2><strong>Export</strong> Data</h2>
+                            </div>
+
+                            <div class='table-responsive'>
+                                <a href="{% url 'export_csv_data' %}" data-toggle="tooltip" title="Export CSV File" class="btn btn-x btn-primary"></i>&nbsp;CSV&nbsp;</a>
+                               
+                            </div>
+
+                        </div> 
+                        
+                        <div class="block full">
+
+                            <div class="block-title">
+                                <h2><strong>Import</strong> Data</h2>
+                            </div>
+                            
+                                &nbsp;<form action="{% url 'import_csv_data' %}" method="post" enctype="multipart/form-data"  >
+                                    {% csrf_token %}
+                                    <div class='table-responsive'  >
+                                        <input type="file" name="csv_file" id="csv_file">
+                                        <br>
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-angle-right"></i> Submit</button>
+                                    </div>
+                                </form>
+                            
+                        </div>    
+                        
+
+                        <div class="block full">
                             <div class="block-title">
                                 <h2><strong>Category</strong> List</h2>
                             </div>
