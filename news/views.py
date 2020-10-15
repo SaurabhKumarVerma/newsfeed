@@ -8,6 +8,7 @@ from cat.models import Cat
 from comment.models import Comment
 import random
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger 
+import qrcode
 # Create your views here.
 
 def news_detail(request,word):
@@ -38,7 +39,15 @@ def news_detail(request,word):
 	comment = Comment.objects.filter(news_id=code ,status = 1).order_by('-pk')
 	cmcount = len(comment)
 
-	return render(request, 'front/news_detail.html',{'cmcount':cmcount,'comment':comment,'code':code,'site':site,'news':news, 'cat':cat,'subcat':subcat,'lastnews':lastnews,'shownews':shownews,'popnews2':popnews2,'tag':tag,'popnews':popnews})
+	link = "/urls/" + str(News.objects.get(name=word).rand)
+	qr = qrcode.QRCode(version=1,error_correction=qrcode.constants.ERROR_CORRECT_L,box_size=10,border=4,)
+	qr.add_data('link')
+	qr.make(fit=True)
+
+	img = qr.make_image(fill_color="black", back_color="white")
+	
+
+	return render(request, 'front/news_detail.html',{'img':img,'link':link,'cmcount':cmcount,'comment':comment,'code':code,'site':site,'news':news, 'cat':cat,'subcat':subcat,'lastnews':lastnews,'shownews':shownews,'popnews2':popnews2,'tag':tag,'popnews':popnews})
 
 
 def news_detail_short(request,pk):
@@ -123,6 +132,7 @@ def news_add(request):
 	randint = str(random.randint(1000,9999))
 	rand = date + randint
 	rand = int(rand)
+	print(rand)
 	
 	while len(News.objects.filter(rand=rand)) != 0:
 		randint = str(random.randinit(1000,9999))

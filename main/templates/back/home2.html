@@ -1,0 +1,18 @@
+
+{% extends 'back/master.html' %}
+
+{% load staticfiles %}
+
+{% block mainblock %}
+
+	<div class="row">
+                            
+                           
+                        </div>
+
+{% endblock %}
+
+{% block footerblock %}
+    <script src="{% static 'back/js/pages/index.js' %}"></script>
+    <script>$(function(){ Index.init(); });</script>
+{% endblock %}

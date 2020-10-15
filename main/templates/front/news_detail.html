@@ -1,6 +1,6 @@
 {% extends 'front/master.html' %}
 {% load staticfiles %}
-
+{% load qr_code %}
 {% block headblock %}
 
 	<title>{{site.name}} | News Detail</title>
@@ -237,7 +237,18 @@
 						<div>
 							<div class="how2 how2-cl4 flex-s-c m-b-30">
 								<h3 class="f1-m-2 cl3 tab01-title">
-									Tags
+									Scan OR Code
+								</h3>
+							</div>
+
+							<div class="flex-wr-s-s m-rl--5">
+								{% qr_from_text link size=20 border=6 %}
+						</div>
+
+						<div>
+							<div class="how2 how2-cl4 flex-s-c m-b-30">
+								<h3 class="f1-m-2 cl3 tab01-title">
+									Tag
 								</h3>
 							</div>
 
@@ -251,7 +262,7 @@
 
 								
 							</div>	
-						</div>
+						</div>"text"
 					</div>
 				</div>
 			</div>
