@@ -1,6 +1,7 @@
 {% extends 'front/master.html' %}
 {% load staticfiles %}
-{% load qr_code %}
+{% load qr_code%}
+
 {% block headblock %}
 
 	<title>{{site.name}} | News Detail</title>
@@ -91,34 +92,34 @@
 							<!-- Share -->
 							
 						</div>
+						<br/>
+						<br/>
 
-						<!-- Leave a comment -->
 
-						{% if cmcount != 0 %}
-						<div id = "comment" >
-							<div class="how2 how2-cl4 flex-s-c m-b-30" data-spy="scroll"  data-offset="0" >
-								<h3 class="f1-m-2 cl3 tab01-title">
+						<div>
+							<div class="how2 how2-cl4 flex-s-c m-b-30">
+								
+								<h4 class="f1-m-2 cl3 tab01-title">
 									Comments
-								</h3>
+								</h4>
 							</div>
-						{% endif %}
 							{% for cm in comment %}
-							<div class="f1-l-4 cl3 p-b-12">
-								<div  >
-									{{ cm.name }} <br>
-								
-									<p class="f1-s-13 cl8 p-b-40" >
-										<br><br>
-										{{ cm.cm }}
+							<h4 class="flex-wr-s-s m-rl--5">
 
-									</p>
-								</div>
-								
-							</div>	
+								{{cm.name}} | {{cm.date}} | {{cm.time}}
+							</h4>
+							
+							<p class="flex-wr-s-s m-rl--5">
+
+								{{cm.cm}}
+							</p>
 							{% endfor %}
 						</div>
+						<br/>
+						<br/>
 
-
+						
+						<!-- Leave a comment -->
 						<div>
 							<h4 class="f1-l-4 cl3 p-b-12">
 								Leave a Comment
@@ -128,35 +129,36 @@
 								Your email address will not be published. Required fields are marked *
 							</p>
 
-									{% if user.is_authenticated %}
-
-							<form action="{% url 'news_cm_add' pk=code %}" method= 'POST'>
+							{% if user.is_authenticated %}
+							<form action="{% url 'news_cm_add' pk=code %}" method="POST" >
 								{% csrf_token %}
-								<textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20" name="msg" placeholder="Comment..."></textarea>
+								<textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20" name="msg" placeholder="Comment..." required></textarea>
 
 								
+
 								<button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10">
 									Post Comment
 								</button>
+
 							</form>
+							
 							{% else %}
 
-							<form action="{% url 'news_cm_add' pk=code %}" method= 'POST'>
+							<form action="{% url 'news_cm_add' pk=code %}" method="POST">
 								{% csrf_token %}
-								<textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20" name="msg" placeholder="Comment..."></textarea>
+								<textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20" name="msg" placeholder="Comment..." required></textarea>
 
-								<input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text" name="name" placeholder="Name*">
+								<input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text" name="name" placeholder="Name*" required>
 
-								<input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text" name="email" placeholder="Email*">
-
-								
+								<input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="email" name="email" placeholder="Email" required>
 
 								<button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10">
 									Post Comment
 								</button>
-							</form>
 
+							</form>
 							{% endif %}
+
 						</div>
 					</div>
 				</div>
@@ -202,13 +204,13 @@
 								{% for pop in popnews %}
 								{% if pop.ocatid == i.ocatid %}
 								<li class="flex-wr-sb-s p-b-30">
-									<a href="#" class="size-w-10 wrap-pic-w hov1 trans-03">
+									<a href="{% url 'news_detail' word=pop.name %}" class="size-w-10 wrap-pic-w hov1 trans-03">
 										<img src="{{pop.picurl}}" alt="IMG">
 									</a>
 
 									<div class="size-w-11">
 										<h6 class="p-b-4">
-											<a href="blog-detail-02.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+											<a href="#" class="f1-s-5 cl3 hov-cl10 trans-03">
 												{{pop.name}}
 											</a>
 										</h6>
@@ -237,18 +239,21 @@
 						<div>
 							<div class="how2 how2-cl4 flex-s-c m-b-30">
 								<h3 class="f1-m-2 cl3 tab01-title">
-									Scan OR Code
+									Scan QR Code
 								</h3>
 							</div>
 
 							<div class="flex-wr-s-s m-rl--5">
-								{% qr_from_text link size=20 border=6 %}
-						</div>
 
+								{% qr_from_text link size=10 border=7 %}
+								
+								
+							</div>	
+						</div>
 						<div>
 							<div class="how2 how2-cl4 flex-s-c m-b-30">
 								<h3 class="f1-m-2 cl3 tab01-title">
-									Tag
+									Tags
 								</h3>
 							</div>
 
@@ -262,8 +267,7 @@
 
 								
 							</div>	
-						</div>"text"
-					</div>
+						</div>
 				</div>
 			</div>
 		</div>	

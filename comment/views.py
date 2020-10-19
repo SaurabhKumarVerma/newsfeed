@@ -42,7 +42,7 @@ def news_cm_add(request,pk):
         if request.user.is_authenticated:
 
             manager = Manager.objects.get(utxt=request.user)
-            b = Comment(name=manager.name,email=manager.email,cm=cm,news_id=pk,date=today,time=time)
+            b = Comment(name=manager.name,email=manager.email,cm=cm,news_id=pk,date="",time="")
             b.save()
         else:
             
@@ -54,6 +54,7 @@ def news_cm_add(request,pk):
             a.save()
 
     newsname = News.objects.get(pk=pk).name
+    print(newsname)
 
 
     return redirect('news_detail',word=newsname)

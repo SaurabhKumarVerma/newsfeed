@@ -369,4 +369,20 @@ def news_suspend(request,pk):
 
 	return redirect("news_list")
 
+def all_news(request,word):
+
+	catid = Cat.objects.get(name=word).pk
+	print(catid)
+	allnews = News.objects.filter(ocatid=catid)
+
+	site = Main.objects.get(pk=1)
+	news = News.objects.filter(act=1).order_by('-pk')
+	cat =  Cat.objects.all()	
+	subcat = SubCat.objects.all()
+	lastnews = News.objects.filter(act=1).order_by('-pk')[:3]
+	popnews2 = News.objects.filter(act=1).order_by('-show')[:3]
+	lastnews2 = News.objects.filter(act=1).order_by('-pk')[:4]
+	
+
+	return render(request, 'front/all_news.html',{'catid':catid,'all_news':all_news,'lastnews2':lastnews2,'site':site,'news':news, 'cat':cat,'subcat':subcat,'lastnews':lastnews,'popnews2':popnews2})
 
