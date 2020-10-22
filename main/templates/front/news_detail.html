@@ -55,7 +55,9 @@
 							</h3>
 							
 							<div class="flex-wr-s-s p-b-40">
+								
 								<span class="f1-s-3 cl8 m-r-15">
+									
 									<a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
 										{{ i.writer }}
 									</a>
@@ -100,20 +102,23 @@
 							<div class="how2 how2-cl4 flex-s-c m-b-30">
 								
 								<h4 class="f1-m-2 cl3 tab01-title">
-									Comments
+									<i class="fas fa-comments">&nbsp;&nbsp;Comments</i>
 								</h4>
 							</div>
-							{% for cm in comment %}
-							<h4 class="flex-wr-s-s m-rl--5">
 
-								{{cm.name}} | {{cm.date}} | {{cm.time}}
-							</h4>
 							
-							<p class="flex-wr-s-s m-rl--5">
 
+							<div  style="overflow:scroll;">
+
+								{% for cm in comment %}
+								<i class="fas fa-user">&nbsp;&nbsp;{{cm.name}} </i>:-&nbsp; <i class='fas fa-calendar-alt'>&nbsp;&nbsp;{{cm.date}}</i> &nbsp;&nbsp; <i class='fas fa-clock'>&nbsp;&nbsp;{{cm.time}}</i></h3><br>
+								
 								{{cm.cm}}
-							</p>
-							{% endfor %}
+								<br><br>
+								{% endfor %}
+						
+							</div>
+							
 						</div>
 						<br/>
 						<br/>
@@ -239,7 +244,7 @@
 						<div>
 							<div class="how2 how2-cl4 flex-s-c m-b-30">
 								<h3 class="f1-m-2 cl3 tab01-title">
-									Scan QR Code
+									<i class="fa fa-qrcode" style="font-size:24px">&nbsp;</i>Scan QR Code
 								</h3>
 							</div>
 
@@ -253,7 +258,7 @@
 						<div>
 							<div class="how2 how2-cl4 flex-s-c m-b-30">
 								<h3 class="f1-m-2 cl3 tab01-title">
-									Tags
+									<i class="fa fa-tag">&nbsp;</i>Tags
 								</h3>
 							</div>
 
